@@ -1,9 +1,23 @@
 const { startServer } = require("./server");
 const config = require("./config/config");
-const logger = require("./config/logger")
+const logger = require("./config/logger");
+
+const NablaTx = require("../../mt-nabla-tx");
+
+const nablaTx = new NablaTx({ logger, port: config.hub.port, ip: config.hub.ip });
 
 
-startServer(config.nablaPort).then((server) => {
+const accessMessageHandler = (msg) => {
+  nablaTx.accessLog(msg);
+}
+
+
+startServer(accessMessageHandler).then((server) => {
+
+  // build system logger
+
+
+
   const exitHandler = () => {
     if (server) {
       server.close(() => {
