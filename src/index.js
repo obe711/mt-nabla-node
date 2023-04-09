@@ -1,7 +1,7 @@
 const { startServer } = require("./server");
 const config = require("./config/config");
 const logger = require("./config/logger");
-
+const { NablaSystem, SYS_STAT_UPDATE_EVENT } = require("./NablaSystem");
 const NablaTx = require("../../mt-nabla-tx");
 
 const nablaTx = new NablaTx({ logger, port: config.hub.port, ip: config.hub.ip });
@@ -11,11 +11,16 @@ const accessMessageHandler = (msg) => {
   nablaTx.accessLog(msg);
 }
 
+const systemUpdateMessageHandler = (msg) => {
+  nablaTx.systemStatus(msg);
+}
+
 
 startServer(accessMessageHandler).then((server) => {
 
-  // build system logger
-
+  // Start system monitor
+  const nablaSystem = new NablaSystem({ logger });
+  nablaSystem.on(SYS_STAT_UPDATE_EVENT, systemUpdateMessageHandler);
 
 
   const exitHandler = () => {
