@@ -10,6 +10,7 @@ const envVarsSchema = Joi.object()
     NABLA_PORT: Joi.number().default(41234),
     NABLA_HUB_IP: Joi.string().required(),
     NABLA_HUB_PORT: Joi.number().required(),
+    NABLA_PROVIDER: Joi.string().valid('digitalocean', 'aws', 'azure').required(),
   })
   .unknown();
 
@@ -24,6 +25,7 @@ module.exports = {
   nablaPort: envVars.NABLA_PORT,
   hub: {
     ip: envVars.NABLA_HUB_IP,
-    port: envVars.NABLA_HUB_PORT
+    port: envVars.NABLA_HUB_PORT,
+    provider: envVars.NABLA_PROVIDER
   }
 };

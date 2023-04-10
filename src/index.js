@@ -12,6 +12,7 @@ const accessMessageHandler = (msg) => {
 }
 
 const systemUpdateMessageHandler = (msg) => {
+  Object.assign(msg, { provider: config.hub.provider })
   nablaTx.systemStatus(msg);
 }
 

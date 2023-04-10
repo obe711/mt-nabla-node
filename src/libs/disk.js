@@ -2,6 +2,9 @@ const { execFile } = require('node:child_process');
 const { existsSync } = require('node:fs');
 const { normalize, sep } = require('node:path');
 
+const GB = 1073741824;
+const KB = 1048576
+
 function getFirstExistingParentPath(directoryPath) {
   let parentDirectoryPath = directoryPath
   let parentDirectoryFound = existsSync(parentDirectoryPath)
@@ -37,9 +40,9 @@ function checkDiskSpace(directoryPath) {
 
     return {
       diskPath: diskData[mapping.diskPath],
-      free: parseInt(diskData[mapping.free], 10) * coefficient,
-      size: parseInt(diskData[mapping.size], 10) * coefficient,
-      used: parseInt(diskData[mapping.used], 10) * coefficient,
+      free: (parseInt(diskData[mapping.free], 10) * coefficient) / KB,
+      size: (parseInt(diskData[mapping.size], 10) * coefficient) / KB,
+      used: (parseInt(diskData[mapping.used], 10) * coefficient) / KB,
       capacity: diskData[mapping.capacity]
     }
   }
