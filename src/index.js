@@ -2,7 +2,7 @@ const { startServer } = require("./server");
 const config = require("./config/config");
 const logger = require("./config/logger");
 const { NablaSystem, SYS_STAT_UPDATE_EVENT } = require("./NablaSystem");
-const NablaTx = require("../../mt-nabla-tx");
+const NablaTx = require("mt-nabla-tx");
 
 const nablaTx = new NablaTx({ logger, port: config.hub.port, ip: config.hub.ip });
 
