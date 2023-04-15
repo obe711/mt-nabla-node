@@ -8,7 +8,7 @@ const nablaTx = new NablaTx({ logger, port: config.hub.port, ip: config.hub.ip }
 
 
 const accessMessageHandler = (msg) => {
-  nablaTx.accessLog(msg);
+  nablaTx.nablaClient.clientSend(msg)
 }
 
 const systemUpdateMessageHandler = (msg) => {
